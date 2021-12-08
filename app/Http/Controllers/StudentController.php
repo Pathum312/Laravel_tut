@@ -77,9 +77,8 @@ class StudentController extends Controller
     public function getById($id): JsonResponse
     {
         $student = DB::table('students')
-            ->distinct()
             ->where('id', $id)
             ->get();
-        return response()->json($student);
+        return response()->json($student[0]);
     }
 }
