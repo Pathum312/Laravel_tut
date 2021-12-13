@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 /**
- * @method static findOrfail(array|Application|Request|string|null $request)
  * @method static create(array $all)
- * @method static find(array|Application|Request|string|null $request)
+ * @method static select(string $string, string $string1, string $string2, string $string3)
+ * @method static find(int $id)
  */
 class Student extends Model
 {
