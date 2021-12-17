@@ -20,17 +20,22 @@ class StudentController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        $params = [];
+        if ($request->query('firstName')) $params[] = ['firstName' , 'like', '%'.$request->query('firstName').'%'];
+        if ($request->query('lastName')) $params[] = ['lastName' , 'like', '%'.$request->query('lastName').'%'];
+        if ($request->query('email')) $params[] = ['email', 'like', '%'.$request->query('email').'%'];
+        if ($request->query('age')) $params[] = ['age', '=', (int)$request->query('age')];
         $count = Student::all()
             ->offsetGet($request->query('offset'))
             ->limit($request->query('limit'))
-            ->orWhere('firstName', 'like', '%'.$request->query('firstName').'%')
+            ->orWhere($params)
             ->withoutTrashed()
             ->get()
             ->count();
         $students = Student::all()
             ->offsetGet($request->query('offset'))
             ->limit($request->query('limit'))
-            ->orWhere('firstName', 'like', '%'.$request->query('firstName').'%')
+            ->orWhere($params)
             ->withoutTrashed()
             ->get();
         return response()->json(['count'=>$count,'rows'=>$students]);
